@@ -1,0 +1,355 @@
+html{
+			box-sizing: border-box;
+		}
+		body{
+			margin:0;
+			background: #d8d8d8;
+		}
+		.resultsItem{
+			display: flex;
+			flex-direction: row;
+			max-width: 100%;
+			height: 4em;
+			background:#EDEDED;
+			padding: 10px;
+			justify-content: center;
+			align-items: center;
+			align-content: center;
+			border-bottom: 1px #fff solid;
+			position: relative;
+		}
+		
+		.resultsItem .resultsItemLeft{
+			align-content: flex-start;
+			justify-content: flex-start;
+		}
+		
+		.resultsItem .resultsItemLeft img{
+			border-radius: 3em;
+		}
+		
+		.resultsItem .resultsItemRight{
+			flex:1 45%;
+			color:#484647;
+			margin-left: 1em;
+			font-family: helvetica;
+			font-size: 1.5em;
+			align-content: flex-start;
+			
+		}
+		
+		.resultsItemRight span{
+			color:#9B9290;
+			font-size: .5em;
+			
+		}
+		
+		.farRightAdd{
+			display: flex;
+			margin-right: .5em;
+		}
+		
+		.farRightAdd span{
+
+
+			color:#54494B;
+			font-size: 2em;
+			cursor: pointer;
+		}
+		
+		nav{
+			height:3em;
+			width:100%;
+			background: #EF5550;
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			  justify-content: space-between;
+		}
+		
+		nav a{
+			justify-content: flex-end;
+			margin-right: .5em;
+			font-size: 1.75em;
+			color:#fff;
+		}
+		
+		nav span{
+			margin-left: 1em;
+			color:#FBFBFB;
+			font-family:'Pacifico';
+		}
+		
+		
+		#searchContainer{
+			display: flex;
+			flex-direction: row;
+			width: 100%;
+			overflow-y: hidden;
+			height: 3.5em;
+			position: relative;
+		}
+		
+		#searchButton{
+			width:6em;
+			height: 5em;
+			padding: 0;
+			margin: 0;
+			border: none;
+			background:#484647;
+			outline: none;
+			color:#fff;
+			cursor: pointer;
+			position: absolute;
+			top:0;
+			right:0;
+		}
+		
+		#searchButton i{
+			  font-size: 2em;
+		}
+
+		
+		#searchInput{
+  width: calc(100%);
+  height: 100%;
+  		border: none;
+  		background: #FBFBFB;
+  		outline: none;
+  		margin: 0;
+		outline:none;
+		font-size-adjust: auto;
+			padding: 0;
+			font-size: 1.3em;
+			padding-left: .5em;
+			
+		}
+	
+		
+		#nextStep{
+  display: flex;
+  flex-direction: row;
+  max-width: 100%;
+  height: 4em;
+  background: #EDEDED;
+  justify-content: space-around;
+  align-items: center;
+  position: relative;
+		}
+		
+		#nextStep button{
+			 width:6em;
+	border: none;		background:#7EBC89;
+			height: 100%;
+			padding: 0;
+  margin: 0;
+			position: absolute;
+			top:0;
+			right:0;
+
+		}
+		
+		
+		
+		#nextStep button i{
+color:#FBFBFB;
+font-size: 2em;
+
+			
+		}
+		
+		#artistsLeft{
+			align-self: flex-start;
+			align-self: center;
+			font-family: 'helvetica';
+			margin-top: 1.5em;
+		}
+		
+		#artistsRight{
+			align-self: flex-end;
+			margin-right: -.1em;
+		}
+		
+		#headphones{
+  height: 100%;
+  margin: 0px auto;
+  display: table;
+  position: relative;
+  transform: translateY(25%);
+  font-size: 7em;
+  color: #676767;
+  transform: scale(.);
+  text-shadow: 2px 2px #EDEDED;
+			
+		}
+
+.playerImage{
+	overflow: hidden;
+}
+.playerBlurry{
+  height: 94%;
+  width: 100%;
+   background-size: cover;
+  background-repeat: no-repeat;
+	display: flex;
+	align-items: flex-end;
+	justify-content: center;
+}
+
+progress{
+	-webkit-appearance:none;
+	width:100%;
+	height:.5em;
+	border-radius:1.25em;
+	overflow: hidden;
+	
+}
+
+
+progress[value]::-webkit-progress-value{
+	background: #444;
+	background-image:linear-gradient(45deg, #EF5550, #f8e12b);
+	/*transition: .2s;*/
+}
+
+.cardStack{
+	font-family: 'helvetica';
+}
+
+.player{
+
+}
+
+.playerImage{
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	
+}
+
+.playerControls{
+	width: 100%;
+	position: relative;
+	padding: 1em;
+}
+
+.playerInfo{
+	display: flex;
+	flex-direction: column;
+}
+
+.playerInfo span{
+	font-size: 10vmin;
+	text-align: center;
+	color:#fff;
+}
+
+.playerSmall{
+	background:rgba(81,81,81,.2);
+	height:em;
+	width:100%;
+	padding: 1em;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	position: absolute;
+	bottom: 0em;
+	box-sizing: border-box;
+}
+
+.playerSmall .artist{
+	
+}
+.playerSmall .album{
+	font-size: .5em;
+}
+
+.playerButtons{
+	display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  padding-top: 1.25em;
+  width: 100%;
+	
+}
+
+.playerButtons .fa-heart:hover{
+	color:#EF5550;
+}
+
+.playerButtons .fa-thumbs-o-down:hover{
+	
+}
+
+.playerButtons i{
+	color:#FBFBFB;
+	font-size:4.6vmax;
+	cursor: pointer;
+	transition: .5s;
+}
+
+body{
+	height: 100%;
+	width: 100%;
+	overflow: hidden;
+}
+
+.loginMain{
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	background-image:linear-gradient(45deg, #EF5550, #f8e12b);
+	display: flex;
+	flex-direction: column;
+}
+
+.loginMain h1{
+	font-family: 'Pacifico';
+	color:#fff;
+	text-align: center;
+	font-size: 3.25em;
+}
+
+.loginMain div div{
+	flex-direction: row;
+	justify-content: space-around;
+	align-items: center;
+	width:100%;
+	align-self: center;
+	
+}
+
+.loginMain .buttonContainer{
+	width:100%;
+	flex-direction: row;
+	justify-content: space-around;
+}
+
+.loginMain button{
+  align-self: center;
+  width: 50vmax;
+  height: 6em;
+  background: none;
+  border: 3px solid #fff;
+  color: #fff;
+  text-align: center;
+  position: relative;
+  margin: 0px auto;
+  display: table;
+  margin-bottom: 2em;
+  font-size: 1em;
+  padding: 0em;
+  outline: none;
+  transition: .5s;
+	cursor: pointer;
+}
+
+.loginMain button:hover{
+	border-radius: 10em;
+}
+
+
+
+	
