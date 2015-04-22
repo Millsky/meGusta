@@ -1,0 +1,24 @@
+<div class="cardStack" ng-controller="listen">
+	<div class="player" >
+		<div class="playerImage">
+			<div ng-repeat="item in myList" class="playerBlurry" style="background-image:url({{item.album_image}})">
+			</div>
+			<div class="playerSmall">
+				<div class="playerInfo">
+					<span class="artist">{{myList[0].artist_name}}</span>
+					<span class="album">{{myList[0].album_name}}</span>
+				</div>
+					<div class="playerControls">
+					<progress max="30" value="{{time}}"></progress>
+					<div class="playerButtons">
+						<i ng-click="nextTrack()" class="fa fa-thumbs-o-down"></i>
+						<i ng-show="!audio.paused" ng-click="pauseTrack()" class="fa fa-pause"></i>
+						<i ng-show="audio.paused" ng-click="pauseTrack()" class="fa fa-play"></i>
+						<i ng-click="loveTrack()" class="fa fa-heart"></i>
+					</div>
+				</div>
+				</div>
+		</div>
+
+	</div>
+</div>
