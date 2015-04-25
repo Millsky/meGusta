@@ -1,19 +1,26 @@
 <div ng-controller="search">
 			<div id="searchContainer">
-			<input placeholder="What Artists Are You Diggin?" id="searchInput" ng-model="searchParams" type="text"/>
+			<input placeholder="What Artists Are You Diggin?" id="searchInput" ng-model="searchParams" type="text" ng-keyup="search()"/>
 			<button id="searchButton" ng-click="search()"><i class="fa fa-search"></i></button>
 			</div>
 			<div id="nextStep" ng-show="myList.length > 0">
-				<div id="artistsLeft"> Start Listening </div>
+				<div id="artistsLeft"> 
+					<div ng-click="removeItem($index)" class="artistHover" ng-repeat="results in myList" >
+						<img  class="resultArtistImage" style="border-radius:3em;" height="60px" width="60px" 							 ng-src="{{results.images[1].url}}"/>
+						<span>-</span>
+					</div>  
+				</div>
+				
 				<div id="artistsRight">
 					<button ng-click="completeArtists()"> <i class="fa fa-arrow-right"></i> </button>
 				</div>
 			</div>
-			<div ng-repeat="results in myList">
+			<!--
+			<div ng-repeat="results in myList" >
 				<div class="resultsItem">
 					
 					<div class="resultsItemLeft">
-						<!-- IF NULL RETURN CUSTOM IMAGE -->
+		
 						<img class="resultArtistImage" height="60px" width="60px" ng-src="{{results.images[1].url}}" alt="artistImage"/>
 					</div>
 					<div class="resultsItemRight">
@@ -25,11 +32,12 @@
 			
 			
 			</div>
-			</div>
-			<div ng-repeat="results in searchData">
+			</div> 
+-->
+			<div ng-repeat="results in searchData" class="resultsItemC">
 				<div class="resultsItem">
 					<div class="resultsItemLeft">
-						<!-- IF NULL RETURN CUSTOM IMAGE -->
+	
 						<img class="resultArtistImage" height="60px" width="60px" ng-src="{{results.images[1].url}}" alt="artistImage"/>
 					</div>
 					<div class="resultsItemRight">

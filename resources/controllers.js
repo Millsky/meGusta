@@ -6,14 +6,21 @@ djControllers.controller('search',['$scope','Spotify','$state','viewPersist',fun
 	$scope.searchData = [];
 	$scope.searchParams = "";	
 	$scope.myList = [];
+	var complete = true;
 	$scope.search = function(){
+		
+		if(complete === true && $scope.searchParams !== ""){
+		complete = false;
 		var index = 0;
 		var results = [];
 		$scope.searchData = [];
+		var temp = [];
 		function next(){
 			if(index < results.length){
 				getData();
 			}else{
+				$scope.searchData = temp;
+				complete = true;
 				return $scope.searchData;
 			}
 		}
@@ -23,24 +30,29 @@ djControllers.controller('search',['$scope','Spotify','$state','viewPersist',fun
 			Spotify.getArtistTopTracks(item.id,"US").then(function(topTracks){
 				item.topTracks = topTracks;
 				item.isAdded = false;
-				$scope.searchData.push(item);
+				temp.push(item);
 				index++;
 				next();
 			});
 		}
 		
-		Spotify.search($scope.searchParams, 'artist').then(function (data) {  			
+		Spotify.search($scope.searchParams, 'artist').then(function (data) {  		
 			results = data.artists.items;
 			next();
+		},function(){
+			complete = true;
 		});
+		
 		document.getElementById('headphones').style.height = "0px";
 		document.getElementById('headphones').style.transform = "scale(.2)";
+		}
 		
 	}
 	$scope.addItem = function(index){
 		$scope.searchData[index].isAdded = true;
 		$scope.myList.push($scope.searchData[index]);
 		$scope.searchData.splice(index,1);
+		$scope.searchParams = "";	
 	}
 	$scope.removeItem = function(index){
 		var item = $scope.myList[index];
@@ -155,13 +167,13 @@ djControllers.controller('listen',['$scope','Spotify','$state','getNextTracks',f
 		}
 	}
 	$scope.loveTrack = function(){
+		$scope.myList[0].loved = {color:'#EF5550'};
 		$scope.playList.push($scope.myList[0]);
 		Spotify.addPlaylistTracks($scope.currentUser.id,$scope.currentUser.meGustaPlaylistID,'spotify:track:' + $scope.myList[0].track_id).then(function(d){
-			console.log("SUCCESS");
+
 		});
 
-		console.log("CURRENT PLAYLIST");
-		console.log($scope.playList);
+
 		
 	}
 	

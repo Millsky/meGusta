@@ -14,7 +14,7 @@
 						<i ng-click="nextTrack()" class="fa fa-thumbs-o-down"></i>
 						<i ng-show="!audio.paused" ng-click="pauseTrack()" class="fa fa-pause"></i>
 						<i ng-show="audio.paused" ng-click="pauseTrack()" class="fa fa-play"></i>
-						<i ng-click="loveTrack()" class="fa fa-heart"></i>
+						<i ng-click="loveTrack()" ng-style="myList[0].loved" class="fa fa-heart"></i>
 					</div>
 				</div>
 				</div>
