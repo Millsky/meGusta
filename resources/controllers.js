@@ -67,18 +67,16 @@ djControllers.controller('search',['$scope','Spotify','$state','viewPersist',fun
 
 }]);
 
-djControllers.controller('listen',['$scope','Spotify','$state','getNextTracks',function($scope,Spotify,$state,getNextTracks){
+djControllers.controller('listen',['$scope','Spotify','$state','getNextTracks','viewPersist','removeArtist',function($scope,Spotify,$state,getNextTracks,viewPersist,removeArtist){
 	/* GET NEXT 5 TRACKS */
 	var playListName = "Me Gusta Loved Tracks";
 	var playList = {};
 	/* GET USER INFO */
 	$scope.currentUser = {};
-	
 	Spotify.getCurrentUser().then(function (data) {
   		$scope.currentUser = data;
 		Spotify.getUserPlaylists($scope.currentUser.id,{limit:50}).then(function(playLists){
 			$scope.currentUser.playLists = playLists;
-			console.log(playLists);
 			var playListExists = false;
 			for(i=0;i<playLists.items.length;i++){
 			if(playLists.items[i].name == playListName){
@@ -90,25 +88,21 @@ djControllers.controller('listen',['$scope','Spotify','$state','getNextTracks',f
 			if(playListExists == false){
 				/* CREATE PLAYLIST */
 				Spotify.createPlaylist($scope.currentUser.id, { name: playListName }).then(function (data) {
-  					console.log(data);
 					playList = data;
 				});
 			}
 		});
 	});
-	
+	/* SET PLAYLIST */
 	$scope.playList = [];
 	$scope.tracksList = [];
 	$scope.myList = [];
 	var trackIndex = 0;
+	
 	var tracks = getNextTracks.get();
 	tracks.then(function(data){
 		$scope.tracksList = data;
-		
 		getNextTenTracks();
-		//data = data.slice(0,10);
-		
-		//$scope.myList = data;
 		$scope.audio = new Audio($scope.myList[0].preview_url);
 		$scope.audio.play();
 		$scope.audio.ontimeupdate = function(){
@@ -142,7 +136,7 @@ djControllers.controller('listen',['$scope','Spotify','$state','getNextTracks',f
 	});
 	
 	function getNextTenTracks(){
-		var nextTen = $scope.tracksList.splice(0,10);
+		var nextTen = $scope.tracksList.splice(0,2);
 		$scope.myList = $scope.myList.concat(nextTen);
 	}
 	
@@ -176,6 +170,16 @@ djControllers.controller('listen',['$scope','Spotify','$state','getNextTracks',f
 
 		
 	}
+	$scope.noGustaTrack = function(){
+		$scope.tracksList = removeArtist.remove($scope.myList[0].artist_name);
+		viewPersist.set('trackList',$scope.tracksList);
+		$scope.nextTrack();
+	}
+	/* WATCH TRACKLIST FOR CHANGES */
+	$scope.$watch('tracksList',function(){
+		console.log('setting');
+		viewPersist.set('trackList',$scope.tracksList);
+	});
 	
 }]);
 

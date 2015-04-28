@@ -4,6 +4,7 @@ html{
 		body{
 			margin:0;
 			background: #d8d8d8;
+			font-family: 'Lato';
 		}
 
 		nav span, nav i{
@@ -16,11 +17,6 @@ html{
 			padding: 10px;
 			border-bottom: 1px #fff solid;
 			position: relative;
-
-			
-			
-
-	
 			display: -webkit-flex;
 		     flex-direction: row;
 			-webkit-justify-content: center;
@@ -53,7 +49,7 @@ html{
 			align-content: flex-start;
 			color:#484647;
 			margin-left: 1em;
-			font-family: helvetica;
+			font-family: 'Lato';
 			font-size: 1.5em;
 
 			
@@ -95,22 +91,21 @@ html{
 			  
 		}
 		
-		nav a{
-			-webkit-justify-content: flex-end;
-			margin-right: .5em;
-			font-size: 1.75em;
-			color:#fff;
-			justify-content: flex-end;
-			
+
+		nav a {
+			text-decoration: none;
+			font-family: 'pacifico';
+			-webkit-flex:1;
+			flex:1;
+			color:#FBFBFB;
 		}
-		
+
 		nav span{
 			margin-left: 1em;
 			color:#FBFBFB;
 			font-family:'Pacifico';
 			-webkit-flex: 1;
 			flex:1;
-			
 		}
 		
 		
@@ -166,7 +161,8 @@ html{
 			flex-direction: row;
   max-width: 100%;
   height: 4.5em;
-  background: #EDEDED;
+			background: #8786BB;
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(-21%,rgba(84,84,84,1)), color-stop(10%,rgba(255,255,255,0)));
   -webkit-justify-content: space-around;
   -webkit-align-items: center;
   justify-content: space-around;
@@ -183,7 +179,13 @@ html{
 			position: absolute;
 			top:0;
 			right:0;
+			transition: .25s;
+			cursor: pointer;
 
+		}
+
+		#nextStep button:hover{
+			width:100%;
 		}
 		
 		
@@ -198,9 +200,13 @@ font-size: 2em;
 		#artistsLeft{
 			align-self: flex-start;
 			align-self: center;
-			font-family: 'helvetica';
+			font-family: 'Lato';
 			justify-content: space-around;
 			flex:1;
+				flex-wrap: nowrap;
+	overflow:hidden;
+			height: 4.5em;
+			width:100%;
 		}
 		
 		#artistsLeft img{
@@ -255,7 +261,7 @@ progress[value]::-webkit-progress-value{
 }
 
 .cardStack{
-	font-family: 'helvetica';
+	font-family: 'Lato';
 }
 
 .player{
@@ -307,7 +313,7 @@ progress[value]::-webkit-progress-value{
 	
 }
 .playerSmall .album{
-	font-size: .5em;
+	font-size: 1em;
 }
 
 .playerButtons{
@@ -431,7 +437,8 @@ body{
   width: 4.5em;
   height: 100%;
   position: relative;
-  display: inline-block;
+  display: inline-flex;
+
 }
 
 .artistHover img{

@@ -2,7 +2,9 @@ var djServices = angular.module('godj.services',[]);
 
 djServices.service('viewPersist',[function(){
 	var globals = {
-		artistList: []
+		artistList: [],
+		trackList:[],
+		lovedArtists:[]
 	}
 	
 	var get = function(fieldName){
@@ -57,7 +59,6 @@ djServices.service('getNextTracks',['viewPersist','Spotify','$q',function(viewPe
 			getTopTracks(similarArtists[indexTracks].id);
 		}else{
 			/*SHUFFLE AND FLATTEN */
-
 			for(i=0;i<similarTracks.length;i++){
 				/*loop through arrays*/
 				for(j=0;j<similarTracks[i].length;j++){
@@ -79,13 +80,12 @@ djServices.service('getNextTracks',['viewPersist','Spotify','$q',function(viewPe
 					trackObj.preview_url = similarTracks[i][j].preview_url;
 					trackObj.popularity = similarTracks[i][j].popularity;
 					trackObj.album_name = similarTracks[i][j].album.name;
-					
+					trackObj.track_name = similarTracks[i][j].name;
 					flatTracks.push(trackObj);
 					
 				}
 			};
-			console.log("FLAT TRACKS");
-			console.log(flatTracks);
+
 			function shuffle(array) {
   var currentIndex = array.length, temporaryValue, randomIndex ;
 
@@ -105,7 +105,6 @@ djServices.service('getNextTracks',['viewPersist','Spotify','$q',function(viewPe
   return array;
 }
 			flatTracks = shuffle(flatTracks);
-			console.log(flatTracks);
 			tracksList.resolve(flatTracks);
 		}
 	}
@@ -146,3 +145,31 @@ djServices.service('getNextTracks',['viewPersist','Spotify','$q',function(viewPe
 	}
 	
 }]);
+
+djServices.service('removeArtist',['viewPersist',function(viewPersist){
+	var remove = function(artistName){
+		var trackList = viewPersist.get('trackList');
+		var trackListProxy = [];
+		/* NEED TO FIND MORE EFF WAY OF DOING THIS */
+		for(i=0;i<trackList.length;i++){
+			if(trackList[i].artist_name != artistName){
+				trackListProxy.push(trackList[i]);
+			}
+		}
+		return trackListProxy;
+	}
+	
+	return{
+		remove
+	}
+}]);
+
+djServices.service('loveArtist',['viewPersist',function(viewPersist){
+	/*TODO* ADD IN FUNCTION TO RETURN SIMILAR ARTISTS TO LOVED ARTIST*/
+	var love = function(){
+		
+	}
+	return{
+		love
+	}
+}])
