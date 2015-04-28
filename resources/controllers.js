@@ -104,11 +104,18 @@ djControllers.controller('listen',['$scope','Spotify','$state','getNextTracks','
 		$scope.tracksList = data;
 		getNextTenTracks();
 		$scope.audio = new Audio($scope.myList[0].preview_url);
-		$scope.audio.play();
+		$scope.audio.oncanplaythrough = function(){
+			$scope.audio.volume = 1;
+			if($scope.audio.duration > 20){
+				$scope.audio.currentTime = 20;
+			}
+        	$scope.audio.play();
+		}
 		$scope.audio.ontimeupdate = function(){
 		var vol = 1,
     	interval = 200; // 200ms interval
-    	if (Math.floor($scope.audio.currentTime) == 26) {
+			/*
+    	if (Math.floor($scope.audio.currentTime) >= $scope.audio.duration - 5) {
         	if ($scope.audio.volume == 1) {
             	var intervalID = setInterval(function() {
 	        	// Reduce volume by 0.05 as long as it is above 0
@@ -125,9 +132,10 @@ djControllers.controller('listen',['$scope','Spotify','$state','getNextTracks','
             	}, interval);
         	}
     	}
+		*/
 		
 		$scope.$apply(function(){
-			$scope.time = $scope.audio.currentTime;
+			$scope.time = $scope.audio.currentTime - 20;
 		});
 	}
 		$scope.audio.onended = function(){
@@ -146,10 +154,14 @@ djControllers.controller('listen',['$scope','Spotify','$state','getNextTracks','
 		}
 	    $scope.myList.splice(0,1);
 		$scope.audio.src = $scope.myList[0].preview_url;
+
         $scope.audio.pause();
 		$scope.audio.load();
 		$scope.audio.oncanplaythrough = function(){
 			$scope.audio.volume = 1;
+			if($scope.audio.duration > 20){
+				$scope.audio.currentTime = 20;
+			}
         	$scope.audio.play();
 		}
 	}

@@ -469,4 +469,26 @@ body{
 .artistHover span{
 	position: absolute;
 }
+#mainView{
+	transition: .222s;
+}
+#mainView.ng-enter{
+	margin-left: -50em;
+	opacity: 0;
+}
+
+$mainView.ng-leave.ng-leave-active{
+	margin: 200em;
+	opacity: 0;
+}
+
+#mainView.ng-leave{
+	margin-left: 0em;
+	opacity: 1;
+}
+
+$mainView.ng-enter.ng-enter-active{
+	margin: 0em;
+	opacity: 1;
+}
 	

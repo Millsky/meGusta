@@ -9,7 +9,7 @@
 					<span class="album">{{myList[0].track_name}}</span>
 				</div>
 					<div class="playerControls">
-					<progress max="30" value="{{time}}"></progress>
+					<progress max="{{10}}" value="{{time}}"></progress>
 					<div class="playerButtons">
 						<i ng-click="noGustaTrack()" class="fa fa-thumbs-o-down"></i>
 						<i ng-show="!audio.paused" ng-click="pauseTrack()" class="fa fa-pause"></i>
