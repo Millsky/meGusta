@@ -1,53 +1,28 @@
 var djControllers = angular.module('godj.controllers',[]);
 
-djControllers.controller('search',['$scope','Spotify','$state','viewPersist',function($scope,Spotify,$state,viewPersist){
-   
-
+djControllers.controller('search',['$scope','$state','viewPersist','searchArtists',function($scope,$state,viewPersist,searchArtists){
+	var complete = true;
 	$scope.searchData = [];
 	$scope.searchParams = "";	
 	$scope.myList = [];
-	var complete = true;
+	
 	$scope.search = function(){
-		
-		if(complete === true && $scope.searchParams !== ""){
+		if(complete === true && $scope.searchParams != ""){
+			searchCheck();
+		}
+	}
+	
+	function searchCheck(){
 		complete = false;
-		var index = 0;
-		var results = [];
-		$scope.searchData = [];
-		var temp = [];
-		function next(){
-			if(index < results.length){
-				getData();
-			}else{
-				$scope.searchData = temp;
-				complete = true;
-				return $scope.searchData;
-			}
-		}
-		
-		function getData(){
-			var item = results[index];	
-			Spotify.getArtistTopTracks(item.id,"US").then(function(topTracks){
-				item.topTracks = topTracks;
-				item.isAdded = false;
-				temp.push(item);
-				index++;
-				next();
-			});
-		}
-		
-		Spotify.search($scope.searchParams, 'artist').then(function (data) {  		
-			results = data.artists.items;
-			next();
+		searchArtists.get($scope.searchParams).then(function(data){
+			$scope.searchData = data;
+			complete = true;
 		},function(){
+			$scope.searchData = [];
 			complete = true;
 		});
-		
-		document.getElementById('headphones').style.height = "0px";
-		document.getElementById('headphones').style.transform = "scale(.2)";
-		}
-		
 	}
+		
 	$scope.addItem = function(index){
 		$scope.searchData[index].isAdded = true;
 		$scope.myList.push($scope.searchData[index]);
@@ -64,17 +39,24 @@ djControllers.controller('search',['$scope','Spotify','$state','viewPersist',fun
 		viewPersist.set('artistList',$scope.myList);
 		$state.go('listen');
 	}
-
 }]);
 
 djControllers.controller('listen',['$scope','Spotify','$state','getNextTracks','viewPersist','removeArtist',function($scope,Spotify,$state,getNextTracks,viewPersist,removeArtist){
 	/* GET NEXT 5 TRACKS */
-	var playListName = "Me Gusta Loved Tracks";
-	var playList = {};
-	/* GET USER INFO */
+	var playListName = "Me Gusta Loved Tracks",
+		playList = {},
+        trackIndex = 0;
 	$scope.currentUser = {};
-	Spotify.getCurrentUser().then(function (data) {
-  		$scope.currentUser = data;
+	$scope.playList = [];
+	$scope.tracksList = [];
+	$scope.myList = [];
+	
+	Spotify.getCurrentUser().then(function(data){
+		userOperations(data);
+	});
+	
+	function userOperations(data){
+		$scope.currentUser = data;
 		Spotify.getUserPlaylists($scope.currentUser.id,{limit:50}).then(function(playLists){
 			$scope.currentUser.playLists = playLists;
 			var playListExists = false;
@@ -92,13 +74,9 @@ djControllers.controller('listen',['$scope','Spotify','$state','getNextTracks','
 				});
 			}
 		});
-	});
+	}
 	/* SET PLAYLIST */
-	$scope.playList = [];
-	$scope.tracksList = [];
-	$scope.myList = [];
-	var trackIndex = 0;
-	
+
 	var tracks = getNextTracks.get();
 	tracks.then(function(data){
 		$scope.tracksList = data;
@@ -112,32 +90,11 @@ djControllers.controller('listen',['$scope','Spotify','$state','getNextTracks','
         	$scope.audio.play();
 		}
 		$scope.audio.ontimeupdate = function(){
-		var vol = 1,
-    	interval = 200; // 200ms interval
-			/*
-    	if (Math.floor($scope.audio.currentTime) >= $scope.audio.duration - 5) {
-        	if ($scope.audio.volume == 1) {
-            	var intervalID = setInterval(function() {
-	        	// Reduce volume by 0.05 as long as it is above 0
-	        	// This works as long as you start with a multiple of 0.05!
-	        	if (vol > 0) {
-	            	vol -= 0.05;
-	            	// limit to 2 decimal places
-                    // also converts to string, works ok
-                    $scope.audio.volume = vol.toFixed(2);
-	        	} else {
-	            	// Stop the setInterval when 0 is reached
-	            	clearInterval(intervalID);
-	        	}
-            	}, interval);
-        	}
-    	}
-		*/
-		
-		$scope.$apply(function(){
-			$scope.time = $scope.audio.currentTime - 20;
-		});
-	}
+			var vol = 1;
+			$scope.$apply(function(){
+				$scope.time = $scope.audio.currentTime - 20;
+			});
+	    }
 		$scope.audio.onended = function(){
 			$scope.nextTrack();
 		}
@@ -154,7 +111,6 @@ djControllers.controller('listen',['$scope','Spotify','$state','getNextTracks','
 		}
 	    $scope.myList.splice(0,1);
 		$scope.audio.src = $scope.myList[0].preview_url;
-
         $scope.audio.pause();
 		$scope.audio.load();
 		$scope.audio.oncanplaythrough = function(){

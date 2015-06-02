@@ -172,4 +172,49 @@ djServices.service('loveArtist',['viewPersist',function(viewPersist){
 	return{
 		love
 	}
-}])
+}]);
+
+djServices.factory('searchArtists',['Spotify','$q',function(Spotify,$q){
+		
+			var results = [],
+			index = 0,
+			temp = []
+			
+	
+		function next(){
+			if(index < results.length){
+				getData();
+			}else{
+				def.resolve(temp);
+			}
+		};
+		
+		function getData(){
+			var item = results[index];	
+			Spotify.getArtistTopTracks(item.id,"US").then(function(topTracks){
+				item.topTracks = topTracks;
+				item.isAdded = false;
+				temp.push(item);
+				index++;
+				next();
+			});
+		};
+	
+		var get = function(artistName){ 
+			def = $q.defer();
+			temp = [];
+			Spotify.search(artistName, 'artist').then(function (data) {  	
+				index = 0;
+				results = data.artists.items;
+				next();
+			},function(){
+				def.reject();
+			});
+			return def.promise;
+		};
+	
+		return{
+			get:get
+		}
+	
+}]);
