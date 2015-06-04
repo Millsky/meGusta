@@ -2,7 +2,13 @@ var djServices = angular.module('godj.services',[]);
 
 djServices.service('viewPersist',[function(){
 	var globals = {
+<<<<<<< HEAD
 		artistList: []
+=======
+		artistList: [],
+		trackList:[],
+		lovedArtists:[]
+>>>>>>> gh-pages
 	}
 	
 	var get = function(fieldName){
@@ -57,7 +63,10 @@ djServices.service('getNextTracks',['viewPersist','Spotify','$q',function(viewPe
 			getTopTracks(similarArtists[indexTracks].id);
 		}else{
 			/*SHUFFLE AND FLATTEN */
+<<<<<<< HEAD
 
+=======
+>>>>>>> gh-pages
 			for(i=0;i<similarTracks.length;i++){
 				/*loop through arrays*/
 				for(j=0;j<similarTracks[i].length;j++){
@@ -79,13 +88,21 @@ djServices.service('getNextTracks',['viewPersist','Spotify','$q',function(viewPe
 					trackObj.preview_url = similarTracks[i][j].preview_url;
 					trackObj.popularity = similarTracks[i][j].popularity;
 					trackObj.album_name = similarTracks[i][j].album.name;
+<<<<<<< HEAD
 					
+=======
+					trackObj.track_name = similarTracks[i][j].name;
+>>>>>>> gh-pages
 					flatTracks.push(trackObj);
 					
 				}
 			};
+<<<<<<< HEAD
 			console.log("FLAT TRACKS");
 			console.log(flatTracks);
+=======
+
+>>>>>>> gh-pages
 			function shuffle(array) {
   var currentIndex = array.length, temporaryValue, randomIndex ;
 
@@ -105,7 +122,10 @@ djServices.service('getNextTracks',['viewPersist','Spotify','$q',function(viewPe
   return array;
 }
 			flatTracks = shuffle(flatTracks);
+<<<<<<< HEAD
 			console.log(flatTracks);
+=======
+>>>>>>> gh-pages
 			tracksList.resolve(flatTracks);
 		}
 	}
@@ -145,4 +165,80 @@ djServices.service('getNextTracks',['viewPersist','Spotify','$q',function(viewPe
 		get: nextTracks
 	}
 	
+<<<<<<< HEAD
+=======
+}]);
+
+djServices.service('removeArtist',['viewPersist',function(viewPersist){
+	var remove = function(artistName){
+		var trackList = viewPersist.get('trackList');
+		var trackListProxy = [];
+		/* NEED TO FIND MORE EFF WAY OF DOING THIS */
+		for(i=0;i<trackList.length;i++){
+			if(trackList[i].artist_name != artistName){
+				trackListProxy.push(trackList[i]);
+			}
+		}
+		return trackListProxy;
+	}
+	
+	return{
+		remove
+	}
+}]);
+
+djServices.service('loveArtist',['viewPersist',function(viewPersist){
+	/*TODO* ADD IN FUNCTION TO RETURN SIMILAR ARTISTS TO LOVED ARTIST*/
+	var love = function(){
+		
+	}
+	return{
+		love
+	}
+}]);
+
+djServices.factory('searchArtists',['Spotify','$q',function(Spotify,$q){
+		
+			var results = [],
+			index = 0,
+			temp = []
+			
+	
+		function next(){
+			if(index < results.length){
+				getData();
+			}else{
+				def.resolve(temp);
+			}
+		};
+		
+		function getData(){
+			var item = results[index];	
+			Spotify.getArtistTopTracks(item.id,"US").then(function(topTracks){
+				item.topTracks = topTracks;
+				item.isAdded = false;
+				temp.push(item);
+				index++;
+				next();
+			});
+		};
+	
+		var get = function(artistName){ 
+			def = $q.defer();
+			temp = [];
+			Spotify.search(artistName, 'artist').then(function (data) {  	
+				index = 0;
+				results = data.artists.items;
+				next();
+			},function(){
+				def.reject();
+			});
+			return def.promise;
+		};
+	
+		return{
+			get:get
+		}
+	
+>>>>>>> gh-pages
 }]);

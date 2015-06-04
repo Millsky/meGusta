@@ -1,5 +1,6 @@
 var djControllers = angular.module('godj.controllers',[]);
 
+<<<<<<< HEAD
 djControllers.controller('search',['$scope','Spotify','$state','viewPersist',function($scope,Spotify,$state,viewPersist){
    
 
@@ -37,10 +38,39 @@ djControllers.controller('search',['$scope','Spotify','$state','viewPersist',fun
 		document.getElementById('headphones').style.transform = "scale(.2)";
 		
 	}
+=======
+djControllers.controller('search',['$scope','$state','viewPersist','searchArtists',function($scope,$state,viewPersist,searchArtists){
+	var complete = true;
+	$scope.searchData = [];
+	$scope.searchParams = "";	
+	$scope.myList = [];
+	
+	$scope.search = function(){
+		if(complete === true && $scope.searchParams != ""){
+			searchCheck();
+		}
+	}
+	
+	function searchCheck(){
+		complete = false;
+		searchArtists.get($scope.searchParams).then(function(data){
+			$scope.searchData = data;
+			complete = true;
+		},function(){
+			$scope.searchData = [];
+			complete = true;
+		});
+	}
+		
+>>>>>>> gh-pages
 	$scope.addItem = function(index){
 		$scope.searchData[index].isAdded = true;
 		$scope.myList.push($scope.searchData[index]);
 		$scope.searchData.splice(index,1);
+<<<<<<< HEAD
+=======
+		$scope.searchParams = "";	
+>>>>>>> gh-pages
 	}
 	$scope.removeItem = function(index){
 		var item = $scope.myList[index];
@@ -52,6 +82,7 @@ djControllers.controller('search',['$scope','Spotify','$state','viewPersist',fun
 		viewPersist.set('artistList',$scope.myList);
 		$state.go('listen');
 	}
+<<<<<<< HEAD
 
 }]);
 
@@ -67,6 +98,28 @@ djControllers.controller('listen',['$scope','Spotify','$state','getNextTracks',f
 		Spotify.getUserPlaylists($scope.currentUser.id,{limit:50}).then(function(playLists){
 			$scope.currentUser.playLists = playLists;
 			console.log(playLists);
+=======
+}]);
+
+djControllers.controller('listen',['$scope','Spotify','$state','getNextTracks','viewPersist','removeArtist',function($scope,Spotify,$state,getNextTracks,viewPersist,removeArtist){
+	/* GET NEXT 5 TRACKS */
+	var playListName = "Me Gusta Loved Tracks",
+		playList = {},
+        trackIndex = 0;
+	$scope.currentUser = {};
+	$scope.playList = [];
+	$scope.tracksList = [];
+	$scope.myList = [];
+	
+	Spotify.getCurrentUser().then(function(data){
+		userOperations(data);
+	});
+	
+	function userOperations(data){
+		$scope.currentUser = data;
+		Spotify.getUserPlaylists($scope.currentUser.id,{limit:50}).then(function(playLists){
+			$scope.currentUser.playLists = playLists;
+>>>>>>> gh-pages
 			var playListExists = false;
 			for(i=0;i<playLists.items.length;i++){
 			if(playLists.items[i].name == playListName){
@@ -78,11 +131,15 @@ djControllers.controller('listen',['$scope','Spotify','$state','getNextTracks',f
 			if(playListExists == false){
 				/* CREATE PLAYLIST */
 				Spotify.createPlaylist($scope.currentUser.id, { name: playListName }).then(function (data) {
+<<<<<<< HEAD
   					console.log(data);
+=======
+>>>>>>> gh-pages
 					playList = data;
 				});
 			}
 		});
+<<<<<<< HEAD
 	});
 	
 	$scope.playList = [];
@@ -124,13 +181,40 @@ djControllers.controller('listen',['$scope','Spotify','$state','getNextTracks',f
 			$scope.time = $scope.audio.currentTime;
 		});
 	}
+=======
+	}
+	/* SET PLAYLIST */
+
+	var tracks = getNextTracks.get();
+	tracks.then(function(data){
+		$scope.tracksList = data;
+		getNextTenTracks();
+		$scope.audio = new Audio($scope.myList[0].preview_url);
+		$scope.audio.oncanplaythrough = function(){
+			$scope.audio.volume = 1;
+			if($scope.audio.duration > 20){
+				$scope.audio.currentTime = 20;
+			}
+        	$scope.audio.play();
+		}
+		$scope.audio.ontimeupdate = function(){
+			var vol = 1;
+			$scope.$apply(function(){
+				$scope.time = $scope.audio.currentTime - 20;
+			});
+	    }
+>>>>>>> gh-pages
 		$scope.audio.onended = function(){
 			$scope.nextTrack();
 		}
 	});
 	
 	function getNextTenTracks(){
+<<<<<<< HEAD
 		var nextTen = $scope.tracksList.splice(0,10);
+=======
+		var nextTen = $scope.tracksList.splice(0,2);
+>>>>>>> gh-pages
 		$scope.myList = $scope.myList.concat(nextTen);
 	}
 	
@@ -144,6 +228,12 @@ djControllers.controller('listen',['$scope','Spotify','$state','getNextTracks',f
 		$scope.audio.load();
 		$scope.audio.oncanplaythrough = function(){
 			$scope.audio.volume = 1;
+<<<<<<< HEAD
+=======
+			if($scope.audio.duration > 20){
+				$scope.audio.currentTime = 20;
+			}
+>>>>>>> gh-pages
         	$scope.audio.play();
 		}
 	}
@@ -155,6 +245,7 @@ djControllers.controller('listen',['$scope','Spotify','$state','getNextTracks',f
 		}
 	}
 	$scope.loveTrack = function(){
+<<<<<<< HEAD
 		$scope.playList.push($scope.myList[0]);
 		Spotify.addPlaylistTracks($scope.currentUser.id,$scope.currentUser.meGustaPlaylistID,'spotify:track:' + $scope.myList[0].track_id).then(function(d){
 			console.log("SUCCESS");
@@ -164,6 +255,27 @@ djControllers.controller('listen',['$scope','Spotify','$state','getNextTracks',f
 		console.log($scope.playList);
 		
 	}
+=======
+		$scope.myList[0].loved = {color:'#EF5550'};
+		$scope.playList.push($scope.myList[0]);
+		Spotify.addPlaylistTracks($scope.currentUser.id,$scope.currentUser.meGustaPlaylistID,'spotify:track:' + $scope.myList[0].track_id).then(function(d){
+
+		});
+
+
+		
+	}
+	$scope.noGustaTrack = function(){
+		$scope.tracksList = removeArtist.remove($scope.myList[0].artist_name);
+		viewPersist.set('trackList',$scope.tracksList);
+		$scope.nextTrack();
+	}
+	/* WATCH TRACKLIST FOR CHANGES */
+	$scope.$watch('tracksList',function(){
+		console.log('setting');
+		viewPersist.set('trackList',$scope.tracksList);
+	});
+>>>>>>> gh-pages
 	
 }]);
 

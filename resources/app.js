@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 var goDJ = angular.module('godj',['spotify','godj.controllers','godj.services','ui.router']);
+=======
+var goDJ = angular.module('godj',['spotify','godj.controllers','godj.services','ui.router','ngAnimate']);
+>>>>>>> gh-pages
 
 goDJ.config(function(SpotifyProvider,$stateProvider, $urlRouterProvider){
 	SpotifyProvider.setClientId('d89976bf7cbd46b1a181a224be5e1e42');

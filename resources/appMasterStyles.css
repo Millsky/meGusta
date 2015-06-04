@@ -4,14 +4,25 @@ html{
 		body{
 			margin:0;
 			background: #d8d8d8;
+<<<<<<< HEAD
 		}
 		.resultsItem{
 			display: flex;
 			flex-direction: row;
+=======
+			font-family: 'Lato';
+		}
+
+		nav span, nav i{
+			cursor: pointer;
+		}
+		.resultsItem{
+>>>>>>> gh-pages
 			max-width: 100%;
 			height: 4em;
 			background:#EDEDED;
 			padding: 10px;
+<<<<<<< HEAD
 			justify-content: center;
 			align-items: center;
 			align-content: center;
@@ -22,6 +33,29 @@ html{
 		.resultsItem .resultsItemLeft{
 			align-content: flex-start;
 			justify-content: flex-start;
+=======
+			border-bottom: 1px #fff solid;
+			position: relative;
+			display: -webkit-flex;
+		     flex-direction: row;
+			-webkit-justify-content: center;
+			-webkit-align-items: center;
+			-webkit-align-content: center;
+			
+			display: flex;
+		     flex-direction: row;
+			 justify-content: center;
+			 align-items: center;
+			 align-content: center;
+
+		}
+		
+		.resultsItem .resultsItemLeft{
+			-webkit-align-content: flex-start;
+			-webkit-justify-content: flex-start;
+                      align-content: flex-start;
+                      justify-content: flex-start;
+>>>>>>> gh-pages
 		}
 		
 		.resultsItem .resultsItemLeft img{
@@ -29,12 +63,24 @@ html{
 		}
 		
 		.resultsItem .resultsItemRight{
+<<<<<<< HEAD
 			flex:1 45%;
 			color:#484647;
 			margin-left: 1em;
 			font-family: helvetica;
 			font-size: 1.5em;
 			align-content: flex-start;
+=======
+			-webkit-flex:1 45%;
+			flex: 1 45%;
+			-webkit-align-content: flex-start;
+			align-content: flex-start;
+			color:#484647;
+			margin-left: 1em;
+			font-family: 'Lato';
+			font-size: 1.5em;
+
+>>>>>>> gh-pages
 			
 		}
 		
@@ -45,6 +91,10 @@ html{
 		}
 		
 		.farRightAdd{
+<<<<<<< HEAD
+=======
+			display: -webkit-flex;
+>>>>>>> gh-pages
 			display: flex;
 			margin-right: .5em;
 		}
@@ -61,6 +111,7 @@ html{
 			height:3em;
 			width:100%;
 			background: #EF5550;
+<<<<<<< HEAD
 			display: flex;
 			flex-direction: row;
 			align-items: center;
@@ -74,10 +125,38 @@ html{
 			color:#fff;
 		}
 		
+=======
+			display: -webkit-flex;
+			  -webkit-flex-direction: row;
+			  -webkit-justify-content: space-around;
+			  -webkit-align-items: center;
+			  display:flex;
+			  flex-direction: row;
+			  justify-content: space-around;
+			  align-items: center;
+			  
+			  
+		}
+		
+
+		nav a {
+			text-decoration: none;
+			font-family: 'pacifico';
+			-webkit-flex:1;
+			flex:1;
+			color:#FBFBFB;
+		}
+
+>>>>>>> gh-pages
 		nav span{
 			margin-left: 1em;
 			color:#FBFBFB;
 			font-family:'Pacifico';
+<<<<<<< HEAD
+=======
+			-webkit-flex: 1;
+			flex:1;
+>>>>>>> gh-pages
 		}
 		
 		
@@ -127,11 +206,24 @@ html{
 	
 		
 		#nextStep{
+<<<<<<< HEAD
   display: flex;
   flex-direction: row;
   max-width: 100%;
   height: 4em;
   background: #EDEDED;
+=======
+  display: -webkit-flex;
+			display: flex;
+  -webkit-flex-direction: row;
+			flex-direction: row;
+  max-width: 100%;
+  height: 4.5em;
+			background: #8786BB;
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(-21%,rgba(84,84,84,1)), color-stop(10%,rgba(255,255,255,0)));
+  -webkit-justify-content: space-around;
+  -webkit-align-items: center;
+>>>>>>> gh-pages
   justify-content: space-around;
   align-items: center;
   position: relative;
@@ -146,8 +238,19 @@ html{
 			position: absolute;
 			top:0;
 			right:0;
+<<<<<<< HEAD
 
 		}
+=======
+			transition: .25s;
+			cursor: pointer;
+
+		}
+
+		#nextStep button:hover{
+			width:100%;
+		}
+>>>>>>> gh-pages
 		
 		
 		
@@ -161,8 +264,23 @@ font-size: 2em;
 		#artistsLeft{
 			align-self: flex-start;
 			align-self: center;
+<<<<<<< HEAD
 			font-family: 'helvetica';
 			margin-top: 1.5em;
+=======
+			font-family: 'Lato';
+			justify-content: space-around;
+			flex:1;
+				flex-wrap: nowrap;
+	overflow:hidden;
+			height: 4.5em;
+			width:100%;
+		}
+		
+		#artistsLeft img{
+			padding: .5em;
+			align-self: flex-start;
+>>>>>>> gh-pages
 		}
 		
 		#artistsRight{
@@ -171,6 +289,7 @@ font-size: 2em;
 		}
 		
 		#headphones{
+<<<<<<< HEAD
   height: 100%;
   margin: 0px auto;
   display: table;
@@ -181,19 +300,37 @@ font-size: 2em;
   transform: scale(.);
   text-shadow: 2px 2px #EDEDED;
 			
+=======
+   height: 100%;
+  margin: 0px auto;
+  display: table;
+  position: relative;
+  font-size: 7em;
+  color: #676767;
+  text-shadow: 2px 2px #EDEDED;
+  	
+>>>>>>> gh-pages
 		}
 
 .playerImage{
 	overflow: hidden;
 }
 .playerBlurry{
+<<<<<<< HEAD
   height: 94%;
+=======
+  height: 100VMAX;
+>>>>>>> gh-pages
   width: 100%;
    background-size: cover;
   background-repeat: no-repeat;
 	display: flex;
 	align-items: flex-end;
 	justify-content: center;
+<<<<<<< HEAD
+=======
+	position: relative;
+>>>>>>> gh-pages
 }
 
 progress{
@@ -213,11 +350,20 @@ progress[value]::-webkit-progress-value{
 }
 
 .cardStack{
+<<<<<<< HEAD
 	font-family: 'helvetica';
 }
 
 .player{
 
+=======
+	font-family: 'Lato';
+}
+
+.player{
+	height: calc(100% - 3em);
+  overflow-y: hidden;
+>>>>>>> gh-pages
 }
 
 .playerImage{
@@ -234,8 +380,13 @@ progress[value]::-webkit-progress-value{
 }
 
 .playerInfo{
+<<<<<<< HEAD
 	display: flex;
 	flex-direction: column;
+=======
+	display: -webkit-flex;
+	-webkit-flex-direction: column;
+>>>>>>> gh-pages
 }
 
 .playerInfo span{
@@ -257,12 +408,17 @@ progress[value]::-webkit-progress-value{
 	position: absolute;
 	bottom: 0em;
 	box-sizing: border-box;
+<<<<<<< HEAD
+=======
+	left:0;
+>>>>>>> gh-pages
 }
 
 .playerSmall .artist{
 	
 }
 .playerSmall .album{
+<<<<<<< HEAD
 	font-size: .5em;
 }
 
@@ -272,6 +428,20 @@ progress[value]::-webkit-progress-value{
   justify-content: space-around;
   padding-top: 1.25em;
   width: 100%;
+=======
+	font-size: 1em;
+}
+
+.playerButtons{
+	 display: -webkit-flex;
+	 display: flex;
+	 -webkit-flex-direction: row;
+	 -webkit-justify-content: space-around;
+       flex-direction: row;
+       justify-content: space-around;
+	 padding-top: 1.25em;
+	 width: 100%;
+>>>>>>> gh-pages
 	
 }
 
@@ -287,20 +457,31 @@ progress[value]::-webkit-progress-value{
 	color:#FBFBFB;
 	font-size:4.6vmax;
 	cursor: pointer;
+<<<<<<< HEAD
 	transition: .5s;
+=======
+
+>>>>>>> gh-pages
 }
 
 body{
 	height: 100%;
 	width: 100%;
+<<<<<<< HEAD
 	overflow: hidden;
+=======
+>>>>>>> gh-pages
 }
 
 .loginMain{
 	width: 100%;
 	height: 100%;
 	position: absolute;
+<<<<<<< HEAD
 	background-image:linear-gradient(45deg, #EF5550, #f8e12b);
+=======
+	background: #EF5550;
+>>>>>>> gh-pages
 	display: flex;
 	flex-direction: column;
 }
@@ -329,8 +510,13 @@ body{
 
 .loginMain button{
   align-self: center;
+<<<<<<< HEAD
   width: 50vmax;
   height: 6em;
+=======
+  width: 40vmax;
+  height: 5em;
+>>>>>>> gh-pages
   background: none;
   border: 3px solid #fff;
   color: #fff;
@@ -350,6 +536,98 @@ body{
 	border-radius: 10em;
 }
 
+<<<<<<< HEAD
 
 
+=======
+.resultsItemC{
+
+}
+.resultsItemC.ng-enter, 
+.resultsItemC.ng-leave
+{ 
+    -webkit-transition: 500ms;
+    -moz-transition: 500ms;
+    -ms-transition: 500ms;
+    -o-transition: 500ms;
+    transition: 500ms;
+    position: relative;
+    display: block;
+} 
+
+.resultsItemC.ng-enter-stagger{
+    transition-delay: 0.1s;
+}
+ 
+.resultsItemC.ng-enter.ng-enter-active, 
+.resultsItemC.ng-leave {
+    opacity: 1;
+}
+ 
+.resultsItemC.ng-leave.ng-leave-active,
+.resultsItemC.ng-enter {
+    opacity: 0;
+}
+
+.artistHover{
+-webkit-filter: brightness(1);
+  transition: .25s;
+  width: 4.5em;
+  height: 100%;
+  position: relative;
+  display: inline-flex;
+
+}
+
+.artistHover img{
+	transition: .25s;
+	outline: none;
+}
+
+.artistHover span{
+  position: absolute;
+  top: 4;
+  right: .5em;
+  font-size: 3.25em;
+	opacity: 0;
+	transition: .25s;
+}
+
+.artistHover:hover > img{
+  -webkit-filter: brightness(.2);
+}
+
+.artistHover:hover > span{
+	color:#fff;
+	cursor: pointer;
+	opacity: 1;
+}
+
+
+.artistHover span{
+	position: absolute;
+}
+#mainView{
+	transition: .222s;
+}
+#mainView.ng-enter{
+	margin-left: -50em;
+	opacity: 0;
+}
+
+$mainView.ng-leave.ng-leave-active{
+	margin: 200em;
+	opacity: 0;
+}
+
+#mainView.ng-leave{
+	margin-left: 0em;
+	opacity: 1;
+}
+
+$mainView.ng-enter.ng-enter-active{
+	margin: 0em;
+	opacity: 1;
+}
+>>>>>>> gh-pages
 	
