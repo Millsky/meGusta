@@ -2,18 +2,30 @@ var djControllers = angular.module('godj.controllers',[]);
 
 djControllers.controller('search',['$scope','$state','viewPersist','searchArtists',function($scope,$state,viewPersist,searchArtists){
 	var complete = true;
+	var debounced = true;
 	$scope.searchData = [];
 	$scope.searchParams = "";	
 	$scope.myList = [];
 	
 	$scope.search = function(){
-		if(complete === true && $scope.searchParams != ""){
+		if(complete === true && $scope.searchParams != "" && debounced === true){
+			debounced = false;
+			debouncer();
 			searchCheck();
 		}
+	};
+
+	function debouncer(){
+		var debounceTime = 500;
+		if(debounced === false){
+			window.setTimeout(function(){
+				debounced = true;
+			},debounceTime);
+		}
 	}
-	
 	function searchCheck(){
 		complete = false;
+		console.log($scope.searchParams);
 		searchArtists.get($scope.searchParams).then(function(data){
 			$scope.searchData = data;
 			complete = true;
@@ -28,13 +40,13 @@ djControllers.controller('search',['$scope','$state','viewPersist','searchArtist
 		$scope.myList.push($scope.searchData[index]);
 		$scope.searchData.splice(index,1);
 		$scope.searchParams = "";	
-	}
+	};
 	$scope.removeItem = function(index){
 		var item = $scope.myList[index];
 		item.isAdded = false;
 		$scope.myList.splice(index,1);
 		$scope.searchData.push(item);
-	}
+	};
 	$scope.completeArtists = function(){
 		viewPersist.set('artistList',$scope.myList);
 		$state.go('listen');
@@ -88,13 +100,13 @@ djControllers.controller('listen',['$scope','Spotify','$state','getNextTracks','
 				$scope.audio.currentTime = 20;
 			}
         	$scope.audio.play();
-		}
+		};
 		$scope.audio.ontimeupdate = function(){
 			var vol = 1;
 			$scope.$apply(function(){
 				$scope.time = $scope.audio.currentTime - 20;
 			});
-	    }
+	    };
 		$scope.audio.onended = function(){
 			$scope.nextTrack();
 		}
@@ -120,14 +132,14 @@ djControllers.controller('listen',['$scope','Spotify','$state','getNextTracks','
 			}
         	$scope.audio.play();
 		}
-	}
+	};
 	$scope.pauseTrack = function(){
 		if($scope.audio.paused){
 			$scope.audio.play();
 		}else{
 			$scope.audio.pause();
 		}
-	}
+	};
 	$scope.loveTrack = function(){
 		$scope.myList[0].loved = {color:'#EF5550'};
 		$scope.playList.push($scope.myList[0]);
@@ -137,12 +149,12 @@ djControllers.controller('listen',['$scope','Spotify','$state','getNextTracks','
 
 
 		
-	}
+	};
 	$scope.noGustaTrack = function(){
 		$scope.tracksList = removeArtist.remove($scope.myList[0].artist_name);
 		viewPersist.set('trackList',$scope.tracksList);
 		$scope.nextTrack();
-	}
+	};
 	/* WATCH TRACKLIST FOR CHANGES */
 	$scope.$watch('tracksList',function(){
 		console.log('setting');
@@ -156,7 +168,7 @@ djControllers.controller('login',['$scope','$state','Spotify',function($scope,$s
 		Spotify.login().then(function(s){
 			$state.go('search');
 		});
-	}
+	};
 	$scope.skipLogin = function(){
 		$state.go('search');
 	}

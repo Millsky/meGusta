@@ -138,7 +138,7 @@ djServices.service('getNextTracks',['viewPersist','Spotify','$q',function(viewPe
 	var nextTracks = function(){
 		//getAllArtists();
 		return tracksList.promise;
-	}
+	};
 	return{
 		get: nextTracks
 	}
@@ -156,7 +156,7 @@ djServices.service('removeArtist',['viewPersist',function(viewPersist){
 			}
 		}
 		return trackListProxy;
-	}
+	};
 	
 	return remove
 }]);
@@ -165,7 +165,7 @@ djServices.service('loveArtist',['viewPersist',function(viewPersist){
 	/*TODO* ADD IN FUNCTION TO RETURN SIMILAR ARTISTS TO LOVED ARTIST*/
 	var love = function(){
 		
-	}
+	};
 	return love;
 }]);
 
@@ -173,18 +173,19 @@ djServices.factory('searchArtists',['Spotify','$q',function(Spotify,$q){
 		
 			var results = [],
 			index = 0,
-			temp = []
+			temp = [];
 			
 	
 		function next(){
 			if(index < results.length){
 				getData();
 			}else{
+				/*RESOLVE PROMISE*/
+                temp = temp.splice(0,7);
 				def.resolve(temp);
 			}
-		};
-		
-		function getData(){
+        }
+    function getData(){
 			var item = results[index];	
 			Spotify.getArtistTopTracks(item.id,"US").then(function(topTracks){
 				item.topTracks = topTracks;
@@ -193,9 +194,8 @@ djServices.factory('searchArtists',['Spotify','$q',function(Spotify,$q){
 				index++;
 				next();
 			});
-		};
-	
-		var get = function(artistName){ 
+        }
+    var get = function(artistName){
 			def = $q.defer();
 			temp = [];
 			Spotify.search(artistName, 'artist').then(function (data) {  	

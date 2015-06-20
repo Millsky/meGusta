@@ -1,12 +1,13 @@
 <div ng-controller="search">
 			<div id="searchContainer">
-			<input placeholder="What Artists Are You Diggin?" id="searchInput" ng-model="searchParams" type="text" ng-keyup="search()"/>
+			<input placeholder="What Artists Are You Diggin?" id="searchInput" ng-model="searchParams" ng-model-options="{updateOn: 'default change keyup keydown'}"  type="text" ng-keyup="search()"  ng-keydown="search()"/>
 			<button id="searchButton" ng-click="search()"><i class="fa fa-search"></i></button>
 			</div>
 			<div id="nextStep" ng-show="myList.length > 0">
-				<div id="artistsLeft"> 
+
+				<div id="artistsLeft">
 					<div ng-click="removeItem($index)" class="artistHover" ng-repeat="results in myList" >
-						<img ng-show="{{results.images[1].hasOwnProperty('url') == true}}"  class="resultArtistImage" style="border-radius:3em;" height="60px" width="60px" 							 ng-src="{{results.images[1].url}}"/>
+						<img ng-show="{{results.images[1].hasOwnProperty('url') == true}}"  class="resultArtistImage" style="border-radius:3em;" height="60px" width="60px" ng-src="{{results.images[1].url}}"/>
 						<div ng-show="{{results.images.length == 0}}" class="resultArtistImage"style="height:60px;width:60px;background:#484647;border-radius:3em;margin-top:.25em;"><i class="fa fa-headphones" style="  position: absolute;left: .8em;font-size: 1.5em;top:.9em;color: #FBFBFB;"></i></div>
 						<span>-</span>
 					</div>  
