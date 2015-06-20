@@ -1,6 +1,6 @@
 <div ng-controller="search">
 			<div id="searchContainer">
-			<input placeholder="What Artists Are You Diggin?" id="searchInput" ng-model="searchParams" ng-model-options="{updateOn: 'default change keyup keydown'}"  type="text" ng-keyup="search()"  ng-keydown="search()"/>
+			<input placeholder="What Artists Are You Diggin?" id="searchInput" ng-model="searchParams"  type="text" ng-keyup="search()" ng-blur="search()"/>
 			<button id="searchButton" ng-click="search()"><i class="fa fa-search"></i></button>
 			</div>
 			<div id="nextStep" ng-show="myList.length > 0">
