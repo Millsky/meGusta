@@ -5,15 +5,15 @@ djServices.service('viewPersist',[function(){
 		artistList: [],
 		trackList:[],
 		lovedArtists:[]
-	}
+	};
 	
 	var get = function(fieldName){
 		return globals[fieldName];
-	}
+	};
 	
 	var set = function(fieldName,v){
 		globals[fieldName] = v;
-	}
+	};
 	
 	return{
 		get:get,
@@ -30,7 +30,6 @@ djServices.service('getNextTracks',['viewPersist','Spotify','$q',function(viewPe
 	var artistPromise = $q.defer();
 	var similarArtists = [];
 	var similarTracks = [];
-	
 	var index = 0;
 	var indexTracks = 0;
 	var flatTracks = [];
@@ -72,11 +71,11 @@ djServices.service('getNextTracks',['viewPersist','Spotify','$q',function(viewPe
 		popularity:'',
 		artist_id:'',
 		track_id:''
-	}
+	};
 					trackObj.track_id = similarTracks[i][j].id;
 					trackObj.artist_id = similarTracks[i][j].artists[0].id;
 					trackObj.artist_name = similarTracks[i][j].artists[0].name;
-					trackObj.album_image = similarArtists[i].images[0].url
+					trackObj.album_image = similarArtists[i].images[0].url;
 					trackObj.preview_url = similarTracks[i][j].preview_url;
 					trackObj.popularity = similarTracks[i][j].popularity;
 					trackObj.album_name = similarTracks[i][j].album.name;
@@ -84,7 +83,7 @@ djServices.service('getNextTracks',['viewPersist','Spotify','$q',function(viewPe
 					flatTracks.push(trackObj);
 					
 				}
-			};
+			}
 
 			function shuffle(array) {
   var currentIndex = array.length, temporaryValue, randomIndex ;
@@ -116,7 +115,7 @@ djServices.service('getNextTracks',['viewPersist','Spotify','$q',function(viewPe
 			indexTracks ++;
 			nextT();
 		});
-	};
+	}
 	
 
 	
@@ -159,9 +158,7 @@ djServices.service('removeArtist',['viewPersist',function(viewPersist){
 		return trackListProxy;
 	}
 	
-	return{
-		remove
-	}
+	return remove
 }]);
 
 djServices.service('loveArtist',['viewPersist',function(viewPersist){
@@ -169,9 +166,7 @@ djServices.service('loveArtist',['viewPersist',function(viewPersist){
 	var love = function(){
 		
 	}
-	return{
-		love
-	}
+	return love;
 }]);
 
 djServices.factory('searchArtists',['Spotify','$q',function(Spotify,$q){
@@ -214,7 +209,7 @@ djServices.factory('searchArtists',['Spotify','$q',function(Spotify,$q){
 		};
 	
 		return{
-			get:get
+			get:get,
 		}
 	
 }]);
