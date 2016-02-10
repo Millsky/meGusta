@@ -2,31 +2,24 @@ var djControllers = angular.module('godj.controllers',[]);
 
 djControllers.controller('search',['$scope','$state','viewPersist','searchArtists',function($scope,$state,viewPersist,searchArtists){
 	var complete = true;
-	var debounced = true;
+	var debouncedTime = 500;
+	var typingTimer;
 	$scope.searchData = [];
 	$scope.searchParams = "";	
 	$scope.myList = [];
 	
 	$scope.search = function(){
-		if(complete === true && $scope.searchParams != "" && debounced === true){
-			debounced = false;
-			debouncer();
-			searchCheck();
+		clearTimeout(typingTimer);
+		if($scope.searchParams != "") {
+			typingTimer = window.setTimeout(function () {
+                searchCheck($scope.searchParams)
+            },debouncedTime);
 		}
 	};
 
-	function debouncer(){
-		var debounceTime = 500;
-		if(debounced === false){
-			window.setTimeout(function(){
-				debounced = true;
-			},debounceTime);
-		}
-	}
-	function searchCheck(){
+	function searchCheck(search){
 		complete = false;
-		console.log($scope.searchParams);
-		searchArtists.get($scope.searchParams).then(function(data){
+		searchArtists.get(search).then(function(data){
 			$scope.searchData = data;
 			complete = true;
 		},function(){
@@ -62,7 +55,19 @@ djControllers.controller('listen',['$scope','Spotify','$state','getNextTracks','
 	$scope.playList = [];
 	$scope.tracksList = [];
 	$scope.myList = [];
-	
+
+    function resetTime(){
+        $scope.time = 0;
+    }
+
+    function getTime(){
+        return $scope.audio.currentTime;
+    }
+
+    function getDuration(){
+        return $scope.audio.duration;
+    }
+
 	Spotify.getCurrentUser().then(function(data){
 		userOperations(data);
 	});
@@ -90,21 +95,23 @@ djControllers.controller('listen',['$scope','Spotify','$state','getNextTracks','
 	/* SET PLAYLIST */
 
 	var tracks = getNextTracks.get();
+
 	tracks.then(function(data){
 		$scope.tracksList = data;
 		getNextTenTracks();
 		$scope.audio = new Audio($scope.myList[0].preview_url);
-		$scope.audio.oncanplaythrough = function(){
+
+        $scope.audio.oncanplaythrough = function(){
 			$scope.audio.volume = 1;
 			if($scope.audio.duration > 20){
-				$scope.audio.currentTime = 20;
+				//$scope.audio.currentTime = 20;
 			}
         	$scope.audio.play();
 		};
 		$scope.audio.ontimeupdate = function(){
 			var vol = 1;
 			$scope.$apply(function(){
-				$scope.time = $scope.audio.currentTime - 20;
+				//$scope.time = $scope.audio.currentTime - 20;
 			});
 	    };
 		$scope.audio.onended = function(){
@@ -128,7 +135,7 @@ djControllers.controller('listen',['$scope','Spotify','$state','getNextTracks','
 		$scope.audio.oncanplaythrough = function(){
 			$scope.audio.volume = 1;
 			if($scope.audio.duration > 20){
-				$scope.audio.currentTime = 20;
+				//$scope.audio.currentTime = 20;
 			}
         	$scope.audio.play();
 		}
@@ -143,13 +150,15 @@ djControllers.controller('listen',['$scope','Spotify','$state','getNextTracks','
 	$scope.loveTrack = function(){
 		$scope.myList[0].loved = {color:'#EF5550'};
 		$scope.playList.push($scope.myList[0]);
-		Spotify.addPlaylistTracks($scope.currentUser.id,$scope.currentUser.meGustaPlaylistID,'spotify:track:' + $scope.myList[0].track_id).then(function(d){
+        if($scope.currentUser.id !== null && $scope.currentUser.id !== undefined) {
+            Spotify.addPlaylistTracks($scope.currentUser.id, $scope.currentUser.meGustaPlaylistID, 'spotify:track:' + $scope.myList[0].track_id).then(function (d) {
 
-		});
-
-
-		
+            });
+        }else{
+            alert("Please Sign In To Love Tracks");
+        }
 	};
+
 	$scope.noGustaTrack = function(){
 		$scope.tracksList = removeArtist.remove($scope.myList[0].artist_name);
 		viewPersist.set('trackList',$scope.tracksList);
@@ -157,9 +166,13 @@ djControllers.controller('listen',['$scope','Spotify','$state','getNextTracks','
 	};
 	/* WATCH TRACKLIST FOR CHANGES */
 	$scope.$watch('tracksList',function(){
-		console.log('setting');
 		viewPersist.set('trackList',$scope.tracksList);
 	});
+
+    $scope.$on('disposeAudio', function (event, data) {
+        $scope.audio.pause();
+        $scope.audio = {};
+    });
 	
 }]);
 

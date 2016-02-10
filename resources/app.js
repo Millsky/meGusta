@@ -22,3 +22,15 @@ goDJ.config(function(SpotifyProvider,$stateProvider, $urlRouterProvider){
 	
 	  $urlRouterProvider.otherwise('/login');
 });
+
+goDJ.run(function ($rootScope) {
+	$rootScope.$on('$stateChangeStart',
+		function(event, toState, toParams, fromState, fromParams){
+			// IF ROUTE CHNAGES AWAY FROM LISTEN WE NEED TO KILL MUSIC PLAYER
+			if(toState.name == "login" || toState.name == "search"){
+				/* BROADCAST TO LOWER SCOPES INSTEAD OF INJECTING ROOTSCOPE INTO CONTROLLER*/
+				$rootScope.$broadcast('disposeAudio');
+			}
+		});
+});
+

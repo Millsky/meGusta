@@ -75,7 +75,7 @@ djServices.service('getNextTracks',['viewPersist','Spotify','$q',function(viewPe
 					trackObj.track_id = similarTracks[i][j].id;
 					trackObj.artist_id = similarTracks[i][j].artists[0].id;
 					trackObj.artist_name = similarTracks[i][j].artists[0].name;
-					trackObj.album_image = similarArtists[i].images[0].url;
+					trackObj.album_image = similarArtists[i].images[0].url || "";
 					trackObj.preview_url = similarTracks[i][j].preview_url;
 					trackObj.popularity = similarTracks[i][j].popularity;
 					trackObj.album_name = similarTracks[i][j].album.name;
@@ -158,12 +158,14 @@ djServices.service('removeArtist',['viewPersist',function(viewPersist){
 		return trackListProxy;
 	};
 	
-	return remove
+	return{
+		remove:remove
+	}
 }]);
 
 djServices.service('loveArtist',['viewPersist',function(viewPersist){
 	/*TODO* ADD IN FUNCTION TO RETURN SIMILAR ARTISTS TO LOVED ARTIST*/
-	var love = function(){
+	var love = function(id){
 		
 	};
 	return love;
